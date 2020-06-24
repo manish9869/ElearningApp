@@ -1,0 +1,102 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">E-Learning</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarColor02">
+      <ul class="navbar-nav mr-auto">
+        <!-- <li routerLinkActive="active current" class="nav-item" >
+  
+          <a class="nav-link">{{item.text}} </a>
+        </li> -->
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+          <button  type="button" class="btn btn-secondary my-2 my-sm-0" [routerLink]="['/courses']"  [queryParams]="{ course: courseId }">Close</button><span style="margin-left: 5px"></span>
+  
+        
+  
+      </form>
+    </div>
+  
+  
+  </nav>
+  
+  
+  
+  
+  
+
+<div class="container-fluid" style="margin-top:15px;">
+  <div class="row">
+    <div class="col-md-4 sidebar" style="height:620px" id="left_div">
+      <div class="mini-submenu">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </div>
+      <div class="list-group" style="overflow-y: scroll;height: 100%">
+        <span href="#" class="list-group-item active">
+          Submenu
+          <span class="pull-right" id="slide-submenu">
+            <i class="fa fa-times"></i>
+          </span>
+        </span>
+        <a class="list-group-item">
+
+          <div *ngFor="let items of chapterList">
+            <app-demo-test title="{{ items.Serial}}. {{ items.ChapterName}}">
+              <div *ngFor="let item of items.Topic">
+                <div class="row">
+                  <div class="col-lg-1 pull-left">
+                    <i [ngClass]="setIcon(item.VideoURL)"></i>
+                  </div>
+                  <div class="col-lg-10">
+                    <a (click)="playVideoById(item)" style="color:#E95420" class="card-link">
+                      {{ item.Serial }}   {{ item.TopicName }}
+                    </a>
+                  </div>
+                  <!-- <div class="col-lg-2" class="pull-right" *ngIf="checkIsVideo(item.VideoURL)">
+                    <div class="pull-right">{{ item.VideoLength}}:00</div>
+                  </div> -->
+
+                </div>
+                <hr>
+              </div>
+            </app-demo-test>
+          </div>
+        </a>
+      </div>
+    </div>
+
+
+
+    <div class="col-md-8" style="height:100%" id="right_div">
+
+      <div div class="alert  alert-primary" style="text-align: center;font-size: large">
+
+        <strong>{{ SelectedtopicName }}</strong>
+      </div>
+
+      <div class="col-md-12" style="height:100%" *ngIf="isVideo">
+        <div [innerHTML]="topicDesc">
+        </div>
+        <br>
+        <video width="100%" controls>
+          <source [src]="VideoUrl" type="video/mp4">
+        </video>
+
+
+      </div>
+      <div class="col-md-12" style="height: 100%" *ngIf="!isVideo">
+        <div [innerHTML]="topicDesc">
+        </div>
+        <br>
+      
+      </div>
+    </div>
+  </div>
+  
+<div class="overlay" *ngIf="isLoading">
+  <div class="lds-dual-ring"></div>
+</div>

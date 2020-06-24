@@ -1,0 +1,52 @@
+<!-- <div class="container col-lg-7 col-lg-offset-2">
+<div *ngFor="let item of blogService.blogList ">
+<div class="panel panel-info">
+<div class="panel-body">
+ <p><b style="font-family:Arial, Helvetica, sans-serif;text-align: justify;color:#800000;font-size:25px;"> {{ item.BlogTitle}}</b></p>
+<br>
+<p style="font-family:Arial, Helvetica, sans-serif;text-align: justify;color:#006991">{{ item.BlogAbstract}}</p>
+</div>
+<div class="panel-footer">
+  <button type="submit" class="btn btn-primary" [routerLink]="['/SingleBlog']" [queryParams]="{ BlogId: item._id }">Read More</button><span style="margin: 10px"></span>
+</div>
+</div>
+</div>
+</div> -->
+<div class="container">
+<div class="row">
+    <div class="col-lg-8" style="margin-top:20px">
+        
+    <div *ngFor="let item of blogList">
+        <div class="card card-inner shadow-lg" style="margin-top:15px">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                            <!-- <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" style="margin-top:25px;"/> -->
+                            <img src="../../../assets/{{item.BlogCategory}}_logo.jpg" class="img img-rounded img-fluid" style="margin-top:25px;"/>
+                    </div>
+                    <div class="col-md-10" style="margin-top: 15px">
+                      <em>  <p class="primary" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;text-align:left;font-size: 18px"><a><strong>{{ item.BlogTitle}}</strong></a></p>
+                        <p style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">{{ item.BlogAbstract}}</p></em>
+                            <a class="float-right btn btn-outline-primary ml-2" [routerLink]="['/singleblog']" [queryParams]="{ BlogId: item._id }">   <i class="fa fa-reply"></i> <a> Read More</a></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4" style="margin-top:20px;">
+        <div class="card card-inner shadow-lg">
+              <div class="card mb-3">
+                    <h3 class="card-header">Category</h3>
+                    <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item"  *ngFor="let item of categoryList" (click)="loadBlogsAsPerCat(item.CategoryName)">
+                          <a>{{ item.CategoryName }} </a>
+                        </li>
+                    </ul>
+                   </div>
+                  </div>
+        </div>
+</div>
+</div>

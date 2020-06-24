@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" [hidden]="hideNavbar">
+  <a class="navbar-brand" href="#">E-Learning</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+      <li routerLinkActive="active current" class="nav-item"  *ngFor="let item of allNav">
+
+        <a class="nav-link" routerLink="{{item.routerLink}}" *ngIf="item.IsClient || clientRegisterService.isAdmin()">{{item.text}} </a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+        <button *ngIf="!clientRegisterService.loginCheck()" type="button" class="btn btn-secondary my-2 my-sm-0" [routerLink]="['/login']">Login</button><span style="margin-left: 5px"></span>
+
+        <button *ngIf="!clientRegisterService.loginCheck()" type="button" class="btn btn-secondary my-2 my-sm-0" [routerLink]="['/register']">Sign Up</button>
+       
+      <a class="nav-link" *ngIf="clientRegisterService.loginCheck()"  routerLink="/home"> <img src="../../../assets/logout.png" width="25px" height="25px;" (click)="signout()"> </a>  
+
+    </form>
+  </div>
+
+
+</nav>
+
+
+
+

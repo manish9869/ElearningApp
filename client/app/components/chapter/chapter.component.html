@@ -1,0 +1,91 @@
+<div class="container" style="margin-top:10px;">
+    <div class="row">
+  <div class="col-md-4">
+
+      <div class="form-horizontal course-form">
+
+          <fieldset>
+              <div class="form-group">
+                <div class="col-md-12">
+                    <label for="selectcourse" class="control-label">Select Course</label>
+                </div>
+                  <div class="col-lg-12">
+                <div class="btn-group" dropdown #dropdown="bs-dropdown" [autoClose]="true">
+                  <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+                    <label class="control-label" *ngIf="selectedCourse">
+                      {{selectedCourse?.CourseName}}
+                    </label>
+                    <label class="control-label" *ngIf="!selectedCourse">
+                        Select Course
+                      </label>
+
+                    <span class="caret"></span>
+                  </button>
+                  <ul id="dropdown-triggers-manual" *dropdownMenu class="dropdown-menu"
+                      role="menu" aria-labelledby="button-triggers-manual" name="CourseID" >
+                    <li role="menuitem" *ngFor="let items of courseList" (click)="selectedValue(items)"><a class="dropdown-item" >{{ items.CourseName }}</a></li>
+                  </ul>
+                </div>
+                </div>
+                </div>
+<br>
+            <div class="form-group">
+              <label for="inputCourse" class="col-lg-12 control-label">Chapter Name</label>
+              <div class="col-lg-12">
+                <input type="text" class="form-control" placeholder="Chapter Name"  [(ngModel)]="formData.ChapterName" >
+
+              </div>
+            </div>
+      <br>
+      <div class="form-group">
+        <label for="inputCourse" class="col-lg-12 control-label">Chapter Serial</label>
+        <div class="col-lg-12">
+          <input type="text" class="form-control" placeholder="Chapter Serial"  [(ngModel)]="formData.Serial" >
+
+        </div>
+      </div>
+      <br>
+            <div class="form-group">
+              <label for="textArea" class="col-lg-12 control-label">Chapter Description</label>
+              <div class="col-lg-12">
+                <textarea class="form-control" rows="3" placeholder="Chapter Description" [(ngModel)]="formData.ChapterDesc" ></textarea>
+
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-lg-8 col-lg-offset-4">
+                  <button type="submit"   class="btn btn-primary" (click)="onClickSubmit()">Submit</button><span style="margin: 10px"></span>
+                <button type="reset" class="btn btn-default" (click)="resetForm()">Cancel</button>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+
+  </div>
+<div class="col-md-8">
+    <table class="table table-responsive table-sm table-hover">
+        <thead>
+          <th>Course Name</th>
+          <th>Serial</th>
+          <th>Chapter Name</th>
+          <th>Chapter Desc</th>
+          <th></th>
+          <th></th>
+        </thead>
+        <tr *ngFor="let itmes of chapterService.chapterList">
+            <td> {{ itmes.CourseID?.CourseName }} </td>
+            <td> {{ itmes.Serial}} </td>
+        <td> {{ itmes.ChapterName }} </td>
+        <td> {{ itmes.ChapterDesc }} </td>
+        <td>
+            <i class="fa fa-pencil-square-o" aria-hidden="true" (click)="onEdit(itmes)"></i>
+        </td>
+        <td>
+            <i class="fa fa-trash" aria-hidden="true" (click)="onDelete(itmes._id)" ></i>
+        </td>
+        </tr>
+        </table>
+</div>
+</div>
+</div>

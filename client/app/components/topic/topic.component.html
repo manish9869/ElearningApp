@@ -1,0 +1,162 @@
+<div class="container" style="margin-top:10px;">
+  <div class="row">
+    <div class="col-md-4">
+      <form class="form-horizontal course-form" #topicForm='ngForm' [formGroup]="form" (ngSubmit)="saveData(topicForm)">
+        <input type="hidden" id="_id" [(ngModel)]="topicService.selectedTopic._id" name="_id" formControlName="_id">
+        <fieldset>
+
+          <div class="form-group">
+            <div class="col-md-12">
+              <label for="selectcourse" class="control-label">Select Course</label>
+            </div>
+            <div class="col-lg-12">
+              <div class="btn-group" dropdown #dropdown="bs-dropdown" [autoClose]="true">
+                <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+                  <label class="control-label" *ngIf="selectedCourse">
+                    {{selectedCourse?.CourseName}}
+                  </label>
+                  <label class="control-label" *ngIf="!selectedCourse">
+                    Select Course
+                  </label>
+                  <span class="caret"></span>
+                </button>
+                <ul id="dropdown-triggers-manual" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-triggers-manual">
+                  <li role="menuitem" *ngFor="let items of courseList" (click)="courseSelectedValue(items)">
+                    <a class="dropdown-item">{{ items.CourseName }}</a>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+          <br>
+
+          <div class="form-group">
+            <div class="col-md-12">
+              <label for="select Chapter" class="control-label">Select Chapter</label>
+            </div>
+            <div class="col-lg-12">
+              <div class="btn-group" dropdown #dropdown="bs-dropdown" [autoClose]="true">
+                <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+                  <label class="control-label" *ngIf="selectedChapter?.ChapterName">
+                    {{selectedChapter?.ChapterName}}
+                  </label>
+                  <label class="control-label" *ngIf="!selectedChapter?._id">
+                    Select Chapter
+                  </label>
+
+                  <span class="caret"></span>
+                </button>
+                <ul id="dropdown-triggers-manual" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-triggers-manual"
+                  name="ChapterID">
+                  <li role="menuitem" *ngFor="let items of chapterList" (click)="chapterSelectedValue(items)">
+                    <a class="dropdown-item">{{ items.ChapterName }}</a>
+                  </li>
+
+                </ul>
+              </div>
+              <div class='alert alert-danger' *ngIf="submitClicked && !selectedChapter._id">
+                Topic Name required!
+              </div>
+            </div>
+          </div>
+
+          <br>
+          <div class="form-group">
+            <label for="inputTopic" class="col-lg-12 control-label">Topic Name</label>
+            <div class="col-lg-12">
+              <input type="text" class="form-control" id="inputTopic" [(ngModel)]="topicService.selectedTopic.TopicName"
+                placeholder="Course Name" name="TopicName" formControlName="TopicName">
+              <div class='alert alert-danger' *ngIf="TopicName.touched && TopicName.invalid">
+                <div *ngIf="TopicName.errors.required">Topic Name required!</div>
+                <div *ngIf="TopicName.errors.minlength">Topic Name should be atleast 3 char</div>
+                <div *ngIf="TopicName.errors.maxlength">Topic Name should only 140 char</div>
+
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="textArea" class="col-lg-12 control-label">Topic Description</label>
+            <div class="col-lg-12">
+              <textarea class="form-control" rows="3" id="textArea" placeholder="Topic Description" name="TopicDesc"
+                formControlName='TopicDesc' [(ngModel)]="topicService.selectedTopic.TopicDesc"></textarea>
+              <div class='alert alert-danger' *ngIf="TopicDesc.touched && TopicDesc.invalid">
+                <div *ngIf="TopicDesc.errors.minlength">Topic Description should be atleast 3 char</div>
+                <div *ngIf="TopicDesc.errors.maxlength">Topic Description should only 500 char</div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="inputSerialNo" class="col-lg-12 control-label">Serial Number</label>
+            <div class="col-lg-12">
+              <input type="text" class="form-control" type="number" id="inputSerialNo" placeholder="Serial Number"
+                [(ngModel)]="topicService.selectedTopic.Serial" name="Serial" formControlName="Serial">
+              <div class='alert alert-danger' *ngIf="Serial.touched && Serial.invalid">
+                Serial Number required!
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="inputVideoURL" class="col-lg-12 control-label">Video URL</label>
+            <div class="col-lg-12">
+              <input type="text" class="form-control" id="inputVideoURL" [(ngModel)]="topicService.selectedTopic.VideoURL"
+                placeholder="Video URL" name="VideoURL" formControlName="VideoURL">
+              <div class='alert alert-danger' *ngIf="VideoURL.touched && VideoURL.invalid">
+                <div *ngIf="VideoURL.errors.required">Video URL required!</div>
+                <div *ngIf="VideoURL.errors.minlength">Video URL should be atleast 3 char</div>
+                <div *ngIf="VideoURL.errors.maxlength">Video URL should only 1000 char</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputVideoLength" class="col-lg-12 control-label">Video Length</label>
+            <div class="col-lg-12">
+              <input type="text" class="form-control" id="inputVideoLength" placeholder="Video Length" [(ngModel)]="topicService.selectedTopic.VideoLength"
+                name="VideoLength" formControlName="VideoLength">
+              <div class='alert alert-danger' *ngIf="VideoLength.touched && VideoLength.invalid">
+                Video Length required!
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-lg-8 col-lg-offset-4">
+              <button type="submit" [disabled]='topicForm.invalid' class="btn btn-primary">Submit</button>
+              <span style="margin: 10px"></span>
+              <button type="reset" class="btn btn-default" (click)="resetForm(topicForm)">Cancel</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <div class="col-md-8">
+
+      <table class="table table-responsive table-sm table-hover">
+        <thead>
+          <th>Course Name</th>
+          <th>Chapter Name</th>
+          <th>Topic Name</th>
+          <th></th>
+          <th></th>
+        </thead>
+        <tr *ngFor="let itmes of topicService.topicList">
+          <td> {{ itmes.ChapterID?.CourseID?.CourseName }} </td>
+          <td> {{ itmes.ChapterID?.ChapterName }} </td>
+          <td> {{ itmes.TopicName }} </td>
+
+          <td>
+            <i class="fa fa-pencil-square-o" aria-hidden="true" (click)="onEdit(itmes)"></i>
+
+          </td>
+
+          <td>
+            <i class="fa fa-trash" aria-hidden="true" (click)="onDelete(itmes._id,topicForm)"></i>
+          </td>
+
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

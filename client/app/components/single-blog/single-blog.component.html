@@ -1,0 +1,32 @@
+<div class="container" style="margin-top:20px;">
+    <div class="row">
+<div class="col-lg-9">
+        
+                      <h3><b><a>{{ singleBlog?.BlogTitle}}</a></b></h3>
+                      <cite >by {{ singleBlog?.BlogAuthor}}</cite>
+                
+            <hr>
+            
+            <blockquote class="hero">
+                    <p style="font-family:Arial, Helvetica, sans-serif;text-align: justify;font-size:20px;">{{ singleBlog?.BlogAbstract}}</p>
+                    <cite title="Source Title">Posted on {{ singleBlog?.BlogPostedOn }}</cite><br>
+                     <cite title="Source Title">{{ singleBlog?.BlogLevel}}</cite>
+                </blockquote>
+<hr>
+    <div [innerHTML]="singleBlog?.BlogContent">
+    </div>
+</div>
+<div class="col-md-3">
+        <div class="card card-inner shadow-lg">
+              <div class="card mb-3">
+                    <h3 class="card-header">Category</h3>
+                    <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item" *ngFor="let item of categoryList" [routerLink]="['/blogs']" [queryParams]="{ CategoryName: item.CategoryName }"><a >{{ item.CategoryName }} </a></li>
+                    </ul>
+                   </div>
+                  </div>
+    </div></div>
+</div>
+</div>
+     

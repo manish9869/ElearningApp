@@ -1,0 +1,83 @@
+<div class="page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-caption">
+          <h1 class="page-title">{{ courseDetail?.CourseName }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="container">
+  <div class="card-section">
+    <div class="container">
+      <div class="card-block bg-white mb30">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+            <div class="section-title mb-0">
+
+              <p style="font-size:20px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">{{
+                courseDetail?.CourseDesc }} </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+<div class="container">
+  <ul class="nav nav-pills" style="float: left">
+    <li class="nav-item">
+      <a class="nav-link " href="#menu2" data-toggle="tab">Overview</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="#menu1" data-toggle="tab">Course Content</a>
+    </li>
+
+  </ul>
+  <div class="tab-content" style="margin-top: 60px">
+    <div class="tab-pane active" role="tabpanel" id="menu1">
+      <div class="container">
+        <div *ngFor="let items of chapterList">
+          <app-demo-test title="{{ items.Serial}}. {{ items.ChapterName}}">
+            <p>
+              <b> {{ items.ChapterDesc }}</b>
+            </p>
+            <br>
+            <div *ngFor="let item of items.Topic">
+              <div class="row">
+                <div class="col-lg-1">
+                  <i [ngClass]="setIcon(item.VideoURL)"></i>
+                </div>
+                <div class="col-lg-9" style="color:#E95420">
+                  {{ item.Serial }}
+                  <a [routerLink]="['/singletopic']" [queryParams]="{ VideoURL: item.VideoURL, courseId: items.CourseID , TopicID:item._id, TopicName: item.TopicName }" class="card-link">
+                    {{ item.TopicName }}
+                  </a>
+                </div>
+                <div class="col-lg-2" *ngIf="checkIsVideo(item.VideoURL)">
+                  <div class="pull-right">{{ item.VideoLength}}:00</div>
+                </div>
+              </div>
+              <hr>
+            </div>
+          </app-demo-test>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" role="tabpanel" id="menu2">
+      <div class="container jumbotron">
+        {{ courseDetail?.CourseDesc }}
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+</div>

@@ -1,0 +1,49 @@
+
+
+.page-header {background: url('../../../assets/images/pageheader.jpg') no-repeat; position: relative; background-size: cover;height: 200px }
+.page-caption { padding-top: 50px; padding-bottom: 50px; }
+.page-title { font-size: 56px; line-height: 1; color: #fff; font-weight: 600; text-align: center; }
+
+.card-section { position: relative; bottom: 50px; }
+.card-block { padding: 40px;}
+.section-title { margin-bottom: 30px; }
+
+
+
+.zippy { 
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+
+.zippy-heading { 
+    font-weight: bold;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.zippy-body { 
+    padding: 20px;
+}
+
+.expanded { 
+    background: #f0f0f0;
+}
+
+.fa { 
+    float: right;
+}
+
+
+.navtop{
+    margin-top:50px;
+}
+.tab-content {
+    padding: 40px;
+    margin-top: -20px; 
+}
+
+.nav-link {
+    display: inline;
+    padding: -50px
+}
+

@@ -1,0 +1,191 @@
+<div class="container" style="margin-top:10px;">
+  <div class="row">
+    <div class=col-md-4>
+      <form class="form-horizontal course-form" #blogForm='ngForm' [formGroup]="form" (ngSubmit)="saveData(blogForm)">
+        <input type="hidden" id="_id" [(ngModel)]="blogService.selectedBlog._id" name="_id" formControlName="_id">
+        <fieldset>
+          <div class="form-group">
+            <label for="inputBlogTitle" class="col-lg-12 control-label">Category</label>
+            <div class="col-lg-12">
+              <div class="btn-group" dropdown #dropdown="bs-dropdown" [autoClose]="true">
+                <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+                  <label class="control-label" *ngIf="selectedCategory">
+                    {{selectedCategory?.CategoryName}}
+                  </label>
+                  <label class="control-label" *ngIf="!selectedCategory">
+                    Select Category
+                  </label>
+                  <span class="caret"></span>
+                </button>
+                <ul id="dropdown-triggers-manual" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-triggers-manual">
+                  <li role="menuitem" *ngFor="let items of ddlCategory" (click)="ddlSelectedCategory(items)">
+                    <a class="dropdown-item">{{ items.CategoryName }}</a>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="inputBlogTitle" class="col-lg-12 control-label">Level</label>
+            <div class="col-lg-12">
+              <div class="btn-group" dropdown #dropdown="bs-dropdown" [autoClose]="true">
+                <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+                  <label class="control-label" *ngIf="selectedLevels">
+                    {{selectedLevels.Level}}
+                  </label>
+                  <label class="control-label" *ngIf="!selectedLevels">
+                    Select Level
+                  </label>
+
+
+                  <span class="caret"></span>
+                </button>
+                <ul id="dropdown-triggers-manual" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-triggers-manual">
+                  <li role="menuitem" *ngFor="let items of ddlLevels" (click)="ddlSelectedLevel(items)">
+                    <a class="dropdown-item">{{ items.Level }}</a>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="inputBlogTitle" class="col-lg-12 control-label">Blog Title</label>
+            <div class="col-lg-12">
+              <input type="text" class="form-control" id="inputBlogTitle" [(ngModel)]="blogService.selectedBlog.BlogTitle"
+                placeholder="Blog Title" name="BlogTitle" formControlName="BlogTitle">
+              <div class='alert alert-danger' *ngIf="BlogTitle?.touched && BlogTitle?.invalid">
+                <div *ngIf="BlogTitle.errors.required">Blog Title required!</div>
+                <div *ngIf="BlogTitle.errors.minlength">Blog Title should be atleast 3 char</div>
+                <div *ngIf="BlogTitle.errors.maxlength">Blog Title should only 140 char </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="textArea" class="col-lg-12 control-label">Blog Abstract</label>
+            <div class="col-lg-12">
+              <textarea class="form-control" rows="2" id="textArea" placeholder="Blog Abstract" name="BlogAbstract"
+                formControlName='BlogAbstract' [(ngModel)]="blogService.selectedBlog.BlogAbstract"></textarea>
+              <div class='alert alert-danger' *ngIf="BlogAbstract?.touched && BlogAbstract?.invalid">
+                <div *ngIf="BlogAbstract.errors.required">Blog Abstract required!</div>
+                <div *ngIf="BlogAbstract.errors.minlength">Blog Abstract should be atleast 3 char</div>
+                <div *ngIf="BlogAbstract.errors.maxlength">Blog Abstract should only 250 char </div>
+              </div>
+            </div>
+          </div>
+          <br>
+
+          <div class="form-group">
+            <label for="textArea" class="col-lg-12 control-label">Blog Content</label>
+            <div class="col-lg-12">
+              <textarea class="form-control" rows="2" id="textArea" placeholder="Blog Content" name="BlogContent"
+                formControlName='BlogContent' [(ngModel)]="blogService.selectedBlog.BlogContent"></textarea>
+              <div class='alert alert-danger' *ngIf="BlogContent?.touched && BlogContent?.invalid">
+                <div *ngIf="BlogContent.errors.required">Blog Content required!</div>
+                <div *ngIf="BlogContent.errors.minlength">Blog Content should be atleast 3 char</div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="inputBlogVideoURL" class="col-lg-12 control-label">Video URL</label>
+            <div class="col-lg-12">
+              <input type="text" class="form-control" id="inputVideoURL" [(ngModel)]="blogService.selectedBlog.BlogVideoURL"
+                placeholder="Video URL" name="BlogVideoURL" formControlName="BlogVideoURL">
+              <div class='alert alert-danger' *ngIf="BlogVideoURL?.touched && BlogVideoURL?.invalid">
+                <div *ngIf="BlogVideoURL.errors.minlength">Video URL should be atleast 3 char</div>
+              </div>
+            </div>
+          </div>
+
+          <br>
+          <!-- <div class="form-group">
+          <label for="inputBlogImage" class="col-lg-4 control-label">Blog Image</label>
+          <div class="col-lg-8">
+            <input type="text" class="form-control" id="inputBlogImage" [(ngModel)]="blogService.selectedBlog.BlogImage" placeholder="Blog Image"
+              name="BlogImage" formControlName="BlogImage">
+            <div class='alert alert-danger' *ngIf="BlogImage.touched && BlogImage.invalid">
+              Blog Image required!
+            </div>
+          </div>
+        </div> -->
+          <div class="form-group">
+            <label for="inputBlogImage" class="col-lg-12 control-label">Blog Image</label>
+            <div class="col-lg-12">
+              <input #fileInput id="cin" name="cin" type="file" (change)="fileChangeEvent($event)" placeholder="Upload a file..."
+                multiple />
+
+              <table class="table table-hover">
+                <tbody>
+                  <div *ngFor="let file of filesToUpload; let i = index">
+                    <tr class="table-info">
+                      <td> {{file.name}} </td>
+                      <td><i class="fa fa-trash" aria-hidden="true" (click)="removeFile(i)"></i> </td>
+
+                    </tr>
+
+                  </div>
+                </tbody>
+              </table>
+
+            </div>
+
+            <table class="table table-hover" >
+              <tbody>
+                <div *ngFor="let file of blogService.selectedBlog.BlogImageUrls ; let i = index">
+                  <tr class="table-info">
+                    <td> <img src="{{file}}" style="width:25%"> </td>
+                    <td><i class="fa fa-trash" aria-hidden="true" (click)="removeOldFile(i)"></i> </td>
+
+                  </tr>
+
+                </div>
+              </tbody>
+            </table>
+          </div>
+
+
+          <br>
+          <div class="form-group">
+            <div class="col-lg-8 col-lg-offset-4">
+              <button type="submit" [disabled]='blogForm.invalid' class="btn btn-primary">Submit</button><span style="margin: 10px"></span>
+              <button type="reset" class="btn btn-default" (click)="resetForm(blogForm)">Cancel</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+    <div class="col-md-8">
+
+      <table class="table table-responsive table-sm table-hover">
+        <thead>
+          <th>Course Name</th>
+
+          <th>Course Desc</th>
+          <th></th>
+          <th></th>
+        </thead>
+
+
+        <tr *ngFor="let itmes of blogService.blogList">
+          <td> {{ itmes.BlogTitle }} </td>
+          <td> {{ itmes.BlogAbstract }} </td>
+          <td>
+              <i class="fa fa-pencil-square-o" aria-hidden="true" (click)="onEdit(itmes)"></i>
+
+          </td>
+          <td>
+                  <i class="fa fa-trash" aria-hidden="true" (click)="onDelete(itmes._id,blogForm)"></i>
+      
+          
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

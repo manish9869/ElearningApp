@@ -1,0 +1,59 @@
+<div class="container" style="margin-top:10px">
+  <div class="row">
+  <div class="col-md-5">
+    
+      <div class="card bg-light mb-3" style="max-width: 20rem;">
+          <div class="card-header"><h4 class="card-title">Details</h4></div>
+          <div class="card-body">
+            <h4 class="card-title">Name</h4>
+            <p class="card-text">{{ UserDetail?.FirstName }} {{ UserDetail?.LastName }}</p>
+
+           
+            <h4 class="card-title">Email</h4>
+            <p class="card-text">{{ UserDetail?.Email }}</p>
+
+            
+          
+          </div>
+        </div>
+
+  
+
+</div>
+<div class="col-md-7">
+
+    <table class="table table-responsive table-sm table-hover">
+      <thead>
+        <th>Name</th>
+     
+        <th>IsAdmin</th>
+     
+        <th></th>
+        <th></th>
+      </thead>
+  
+  
+      <tr *ngFor="let item of UsersList">
+      <td> {{ item.FirstName }} </td>
+      
+      <td> 
+          <div class="form-check" style="text-align: center">
+           
+                <input class="form-check-input" type="checkbox" [(ngModel)]="item.IsAdmin" (click)="updateDetails(item)">
+            </div>
+      </td>
+      <td> 
+          <i class="fa fa-pencil-square-o" aria-hidden="true" (click)="onEdit(item)"></i>
+
+      </td>
+     
+      <td>
+           <i class="fa fa-trash" aria-hidden="true" (click)="onDelete(item._id,usersForm)"></i>
+           
+      </td>
+      </tr>
+      </table>
+      
+  </div>
+</div>
+</div>

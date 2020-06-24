@@ -1,0 +1,44 @@
+<section id="team" class="pb-5">
+  <div class="container">
+      <h1 class="section-title">OUR COURSES</h1>
+      <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let items of courseService.courseList">
+            
+                  <div class="mainflip">
+                      <div class="frontside">
+                          <div class="card" >
+                              <div class="card-body text-center">
+                                  <p>
+              <img class=" img-fluid" src="../../../assets/{{items.TechnologyName}}_logo.jpg"  alt="card image"></p>
+                                  <h4 class="card-title">{{ items.CourseName }}</h4>
+
+                                 
+                              </div>
+                              <div class="card-footer" style="text-align: center">
+                                    <button type="button" class="btn btn-primary"  [routerLink]="['/courses']" [queryParams]="{ course: items._id }">Start Course</button>
+                              </div>
+                              
+                          </div>
+                      </div>
+                      <!-- <div class="backside">
+                          <div class="card">
+                              <div class="card-body text-center mt-4">
+                                  <h4 class="card-title">Course Description</h4>
+                                  <p class="card-text">{{ items.CourseDesc }}</p>
+                                  <ul class="list-inline">
+
+                                      <li class="list-inline-item">
+                                          
+                                      </li>
+                                  </ul>
+                              </div>
+                              <div class="card-footer" style="text-align: center">
+                                    <button type="button" class="btn btn-primary"  [routerLink]="['/courses']" [queryParams]="{ course: items._id }">Start Course</button>
+                              </div>
+                          </div>
+                      </div> -->
+                  </div>
+          
+          </div>
+        </div>
+        </div></section>
