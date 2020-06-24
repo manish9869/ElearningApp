@@ -42,10 +42,20 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 5
 
 // app.use(cors({ origin: 'http://localhost:4200' }));
 app.use(cors());
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin,X-Requested-With, Content-Type,Accept"
+  );
+
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,POST,PATCH,PUT,OPTIONS,,DELETE"
+  );
+  next();
 });
 var regex = config.blogImagePlaceholderRegex
 console.log(serverUrl)
@@ -72,7 +82,7 @@ app.post("/upload/:id", upload.array("uploads[]", 12), function (req, res) {
         });
     Blog.findByIdAndUpdate(req.params.id, { $push: { 'BlogImageUrls': uploadImageUrls } }, function (err, doc) {
         var blogContent = doc.BlogContent
-        
+
         blogContent = blogContent.replace(regex, serverUrl + "/uploaded_images/"+ doc._id)
         if (!err) {
             Blog.findByIdAndUpdate(doc._id,{ 'BlogContent': blogContent }, function (err, updatedDoc) {
